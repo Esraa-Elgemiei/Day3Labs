@@ -130,6 +130,10 @@ public class Main {
                                             .getAsDouble();
 
         //The median(divides the data into a lower half and an upper half)
+        double medianPopulation;
+        double lowerQuartilePopulation;
+        double upperQuartilePopulation;
+
         List<City> sortedCities = cities.stream().sorted(Comparator.comparing(City::getPopulation)).collect(Collectors.toList()) ;
         int size = sortedCities.size();
         if(size%2==0){
@@ -142,19 +146,21 @@ public class Main {
             double up1=sortedCities.get(size/2+size/4).getPopulation();
             double up2=sortedCities.get(size/2+size/4+1).getPopulation();
 
-            double medianPopulation =(m1+m2)/2;
-            double lowerQuartilePopulation = (l1+l2)/2;
-            double upperQuartilePopulation = (up1+up2)/2;
+            medianPopulation =(m1+m2)/2;
+            //The lower quartile is the middle value of the lower half.
+            lowerQuartilePopulation = (l1+l2)/2;
+            //The upper quartile is the middle value of the upper half.
+            upperQuartilePopulation = (up1+up2)/2;
+
+        }else{
+            medianPopulation = sortedCities.get(size/2).getPopulation();
+            //The lower quartile is the middle value of the lower half.
+            lowerQuartilePopulation = sortedCities.get(size/4).getPopulation();
+            //The upper quartile is the middle value of the upper half.
+            upperQuartilePopulation = sortedCities.get(size/2+size/4).getPopulation();
+
 
         }
-
-        double medianPopulation = sortedCities.get(size/2).getPopulation();
-
-        //The lower quartile is the middle value of the lower half.
-        double lowerQuartilePopulation = sortedCities.get(size/4).getPopulation();
-
-        //The upper quartile is the middle value of the upper half.
-        double upperQuartilePopulation = sortedCities.get(size/2+size/4).getPopulation();
 
         System.out.println("The average Population of cities is: \n" + averagePopulation+
                             " \nThe median Population of cities is: " + medianPopulation+
